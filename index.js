@@ -72,6 +72,16 @@ var WebDriverInstance = function (baseBrowserDecorator, args, logger) {
     var urlObj = urlparse(url, true);
 
     handleXUaCompatible(spec, urlObj);
+	
+	if(config.remoteHostname){
+		if(urlObj.host){
+			delete urlObj.host;
+		}
+		urlObj.hostname = config.remoteHostname;
+	}
+	if(config.remotePort){
+		urlObj.port = config.remotePort;
+	}
 
     delete urlObj.search; //url.format does not want search attribute
     url = urlformat(urlObj);
